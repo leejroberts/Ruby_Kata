@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # check that one string is a permutation of another string
 # source cracking the code interview Ch1, 1.2
 

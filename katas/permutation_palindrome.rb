@@ -1,15 +1,16 @@
+# frozen_string_literal: true
+
 # test if the word is a permutation of a palindrome
 # palindromes are not limited to dictionary words
 # spaces are not relevant to the palindrome
 # source Cracking The Code Interview Ch1, 1.4
 
-
 def permutation_palindrome?(str)
-  str_no_spaces = str.gsub(" ","")
+  str_no_spaces = str.delete(' ')
 
-  chars_count = str_no_spaces.chars.each_with_object({}) { |char, c_hash|
+  chars_count = str_no_spaces.chars.each_with_object({}) do |char, c_hash|
     c_hash[char] ? c_hash[char] += 1 : c_hash[char] = 1
-  }.values
+  end.values
 
   str_length = str_no_spaces.length
 
