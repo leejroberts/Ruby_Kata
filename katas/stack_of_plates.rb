@@ -43,12 +43,11 @@ class PlateStack
     if @stack_arr.last.empty?
       @stack_arr.pop
     end
-    @stack_count
+    @stack_count -= 1
     value
   end
 
   def stack_count
-    binding.pry
     @stack_arr.length
   end
 end

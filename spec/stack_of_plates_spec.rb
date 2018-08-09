@@ -2,7 +2,7 @@ require_relative "../katas/stack_of_plates"
 
 
 RSpec.describe 'PlateStack' do
-  before(:context) do
+  before(:example) do
     @plate_stack, @plate_stack_value = PlateStack.new, PlateStack.new(10, 10)
   end
 
@@ -21,4 +21,12 @@ RSpec.describe 'PlateStack' do
     expect(@plate_stack.stack_count).to eq(2)
   end
 
+  it 'removes a stack if it is empty' do
+    (0..11).each do |num|
+      @plate_stack.push(num)
+    end
+    @plate_stack.pop()
+    @plate_stack.pop()
+    expect(@plate_stack.stack_count).to eq(1)
+  end
 end
