@@ -25,6 +25,36 @@ class LinkedList
       return current_node_other if nodes.include?(current_node_other)
       current_node_other = current_node_other.next_node
     end
+    false
+  end
+
+  def insert_node(index, insert_node)
+    previous_node = nil
+    current_node = @head
+    (index).times do
+      return false if !current_node.is_a?(Node)
+      previous_node = current_node
+      current_node = current_node.next_node
+    end
+    if previous_node
+      previous_node.next_node = insert_node
+    end
+    insert_node.next_node = current_node.next_node
+    true
+  end
+
+  def node_at(index)
+    current_node = @head
+    index.times do
+      return false if !current_node.is_a?(Node)
+      current_node = current_node.next_node
+    end
+    return current_node
+  end
+
+  def [](index)
+    node = node_at(index)
+    node.is_a?(Node) ? node.value : false
   end
 
   def add(*values)
