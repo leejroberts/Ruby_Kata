@@ -1,39 +1,43 @@
-requite "pry"
+# frozen_string_literal: true
 
-class Stack
-  def initialize(*values)
-    binding.pry
-    @stack_arr = []
-    push(*values) if values
+require 'pry'
+
+class InnerStack
+  attr_reader :values
+  def initialize(values = nil)
+    @values = []
+    push(values) if values
   end
 
-  def push(*values)
-    binding.pry
-    values.each { |value| @stack_arr << value }
+  def push(values)
+    if values.is_a?(Array)
+      @values += values
+    else
+      @values << values
+    end
   end
 
-  def pop()
-    !@stack_arr.empty? ? @stack_arr.pop : nil
+  def pop
+    @values.pop
   end
 
   def empty?
-    @stack_arr.empty?
+    @values.empty?
   end
 end
 
-
 class QueueDoubleStack
   attr_reader :in_stack, :out_stack
-  def initialize(*values)
-    binding.pry
-    @in_stack = Stack.new(*values)
-    @out_stack = Stack.new
+  def initialize(values = nil)
+    @in_stack = InnerStack.new(values)
+    @out_stack = InnerStack.new
   end
 
   def flip(giving_stack, taking_stack)
     current_value = giving_stack.pop
     while current_value
       taking_stack.push(current_value)
+      current_value = giving_stack.pop
     end
   end
 
@@ -45,13 +49,13 @@ class QueueDoubleStack
     flip(@out_stack, @in_stack)
   end
 
-  #take in values
-  def queue(*values)
+  # take in values
+  def queue(values)
     flip_to_in_stack if @in_stack.empty?
-    @in_stack.push(*values)
+    @in_stack.push(values)
   end
 
-  def dequeue()
+  def dequeue
     flip_to_out_stack if @out_stack.empty?
     @out_stack.pop
   end
